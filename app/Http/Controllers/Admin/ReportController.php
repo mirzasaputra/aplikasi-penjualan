@@ -20,4 +20,15 @@ class ReportController extends Controller
         return $pdf->stream();
     }
 
+    public function struk($invoice){
+        $data = [
+            'collection' => Penjualan::where('invoice', $invoice)->first()
+        ];
+
+        // dd($data['collection'][1]->user);
+        $pdf = PDF::loadView('admin.report.struk', $data);
+        return $pdf->stream();
+        // return dd($data['collection']);
+    }
+
 }

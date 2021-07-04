@@ -38,6 +38,7 @@ Route::get('/logout', [AuthController::class, 'logout']);
 Route::prefix('administrator')->middleware(['auth.login_only', 'maintenance_mode', 'user_block_status', 'append.menu'])->group(function () {
     // Dashboard
     Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('can:read-dashboard');
+    Route::get('/dashboard/getGrafikPenjualan', [DashboardController::class, 'getGrafikPenjualan'])->middleware('can:read-dashboard');
 
     // User
     Route::get('/users', [UserController::class, 'index'])->middleware('can:read-users');
@@ -106,6 +107,8 @@ Route::prefix('administrator')->middleware(['auth.login_only', 'maintenance_mode
     Route::post('/penjualan/payment', [PenjualanController::class, 'payment'])->middleware('can:read-penjualan');
     Route::delete('/penjualan/{id}/deleteDetail', [PenjualanController::class, 'deleteDetail'])->middleware('can:read-penjualan');
     Route::get('/daftar-penjualan', [PenjualanController::class, 'daftarPenjualan'])->middleware('can:read-penjualan');
+    Route::get('/daftar-penjualan/{id}/detail', [PenjualanController::class, 'detailPenjualan'])->middleware('can:read-penjualan');
     Route::get('/report-penjualan', [PenjualanController::class, 'report'])->middleware('can:read-report-penjualan');
     Route::get('/report-penjualan/{awal}/{akhir}', [ReportController::class, 'penjualan'])->middleware('can:read-report-penjualan');
+    Route::get('/report/{invoice}/struk', [ReportController::class, 'struk'])->middleware('can:read-report-penjualan');
 });

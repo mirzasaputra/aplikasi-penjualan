@@ -183,7 +183,7 @@
 <div class="modal fade" id="modalPayment" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-            <form action="/administrator/penjualan/payment" method="post" id="formSubmit">
+            <form action="/administrator/penjualan/payment" method="post" id="formSubmitCustom">
                 <div class="modal-header">
                     <h5 class="modal-title">Payment</h5>
                     <button class="close" data-dismiss="modal">&times;</button>

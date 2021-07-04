@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
 use App\Models\User;
+use App\Models\LastLogin;
 
 class AuthController extends Controller
 {
@@ -53,7 +54,12 @@ class AuthController extends Controller
                             ]);
                             $user->last_login = Carbon::now();
                             $user->save();
-    
+                            
+                            LastLogin::create([
+                                'user_id' => $user->id,
+                                'login_at' => Carbon::now()
+                            ]);
+                            
                             return response()->json([
                                 'redirect' => '/administrator/dashboard'
                             ], 200);

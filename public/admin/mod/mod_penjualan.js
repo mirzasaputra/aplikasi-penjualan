@@ -133,6 +133,48 @@ $('#bayar').keyup(function(){
     $('input[name="kembali"]').val(kembali);
 })
 
+$('#formSubmitCustom').submit(function(e){
+    e.preventDefault();
+    e.preventDefault();
+    $('button[type="submit"]').addClass("disabled");
+    $('button[type="submit"]').html("Loading...");
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        url: $(this).attr("action"),
+        method: $(this).attr("method"),
+        data: new FormData(this),
+        dataType: "json",
+        contentType: false,
+        processData: false,
+        success: function (data) {
+            $('button[type="submit"]').removeClass("disabled");
+            $('button[type="submit"]').html('<em class="icon ni ni-send"></em><span> Save changes </span>');
+            Swal.fire({
+                title: "Success",
+                icon: "success",
+                text: data.messages,
+            }).then(function () {
+                $('#myModal').modal('hide');
+                $('body').removeClass('modal-open');
+                $('.modal-backdrop').remove();
+                window.open(data.struk, '_blank').focus();
+                pushState(data.redirect);
+            });
+        },
+        error: function (xhr, ajaxOptions, thrownError) {
+            $('button[type="submit"]').removeClass("disabled");
+            $('button[type="submit"]').html('<em class="icon ni ni-send"></em><span> Save changes </span>');
+            Swal.fire({
+                title: 'Error ' + xhr.status,
+                icon: "error",
+                text: xhr.responseJSON['messages']
+            });
+        },
+    });
+})
+
 function tambahBarang(){
     let id = $('#id_barang').val();
     let invoice = $('#noInvoice').val();

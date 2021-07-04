@@ -181,6 +181,7 @@ class PenjualanController extends Controller
 
                 return response()->json([
                     'messages' => 'Transaksi berhasil',
+                    'struk'    => '/administrator/report/'. $request->invoice .'/struk',
                     'redirect' => '/administrator/penjualan'
                 ]);
             } catch(Exeption $e){
@@ -201,6 +202,17 @@ class PenjualanController extends Controller
         ];
 
         return view('admin.'. $this->defaultLayout('penjualan.daftar'), $data);
+    }
+
+    public function detailPenjualan($id){
+        $ids = Hashids::decode($id);
+        $data = [
+            'title' => 'Detail Penjualan',
+            'mod'   => 'mod_penjualan',
+            'penjualan' => Penjualan::find($ids[0])
+        ];
+
+        return view('admin.'. $this->defaultLayout('penjualan.detail'), $data);
     }
 
     public function report(){

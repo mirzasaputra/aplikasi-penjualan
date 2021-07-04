@@ -21,7 +21,7 @@ class CreatePenjualanTable extends Migration
             $table->string('bayar', 30)->nullable(true);
             $table->string('kembali', 30)->nullable(true);
             $table->string('diskon', 30)->nullable(true);
-            $table->string('tgl', 30)->nullable(true);
+            $table->date('tgl')->nullable(true);
             $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict');
             $table->timestamps();
         });
