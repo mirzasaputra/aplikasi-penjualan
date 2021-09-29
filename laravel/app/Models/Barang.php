@@ -16,4 +16,8 @@ class Barang extends Model
     public function penjualan_detail(){
         return $this->hasMany(PenjualanDetail::class);
     }
+
+    public function distributor(){
+        return $this->belongsTo(Distributor::class);
+    }
 }

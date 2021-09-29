@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\SettingController;
 use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Admin\MenuGroupController;
 use App\Http\Controllers\Admin\SubmenuController;
+use App\Http\Controllers\Admin\DistributorController;
 use App\Http\Controllers\Admin\BarangController;
 use App\Http\Controllers\Admin\PenjualanController;
 use App\Http\Controllers\Admin\ReportController;
@@ -111,4 +112,14 @@ Route::prefix('administrator')->middleware(['auth.login_only', 'maintenance_mode
     Route::get('/report-penjualan', [PenjualanController::class, 'report'])->middleware('can:read-report-penjualan');
     Route::get('/report-penjualan/{awal}/{akhir}', [ReportController::class, 'penjualan'])->middleware('can:read-report-penjualan');
     Route::get('/report/{invoice}/struk', [ReportController::class, 'struk'])->middleware('can:read-report-penjualan');
+
+    // Distributor
+    Route::prefix('distributor')->middleware('can:read-distributor')->group(function(){
+        Route::get('', [DistributorController::class, 'index'])->name('distributor');
+        Route::get('create', [DistributorController::class, 'create']);
+        Route::post('store', [DistributorController::class, 'store'])->name('distributor.store');
+        Route::get('{id}/edit', [DistributorController::class, 'edit']);
+        Route::post('{id}/update', [DistributorController::class, 'update'])->name('distributor.update');
+        Route::delete('{id}/delete', [DistributorController::class, 'destroy']);
+    });
 });

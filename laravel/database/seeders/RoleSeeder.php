@@ -31,6 +31,7 @@ class RoleSeeder extends Seeder
         $developerRole->givePermissionTo(['read-users', 'create-users', 'update-users', 'delete-users']);
         $developerRole->givePermissionTo(['read-penjualan']);
         $developerRole->givePermissionTo(['read-daftar-penjualan']);
+        $developerRole->givePermissionTo(['read-distributor', 'create-distributor', 'update-distributor', 'delete-distributor']);
         $developerRole->givePermissionTo(['read-barang', 'create-barang', 'update-barang', 'delete-barang']);
         $developerRole->givePermissionTo(['read-report-penjualan']);
         $developerRole->givePermissionTo(['read-menus', 'create-menus', 'update-menus', 'delete-menus']);
@@ -44,6 +45,7 @@ class RoleSeeder extends Seeder
         $administratorRole->givePermissionTo(['read-users', 'create-users', 'update-users', 'delete-users']);
         $administratorRole->givePermissionTo(['read-penjualan']);
         $administratorRole->givePermissionTo(['read-daftar-penjualan']);
+        $administratorRole->givePermissionTo(['read-distributor', 'create-distributor', 'update-distributor', 'delete-distributor']);
         $administratorRole->givePermissionTo(['read-barang', 'create-barang', 'update-barang', 'delete-barang']);
         $administratorRole->givePermissionTo(['read-report-penjualan']);
         $administratorRole->givePermissionTo(['read-settings', 'update-settings']);

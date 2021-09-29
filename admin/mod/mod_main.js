@@ -141,8 +141,12 @@ $(document).ready(function () {
 					console.error(thrownError);
 					$('button[type="submit"]').removeClass("disabled");
 					$('button[type="submit"]').html('<em class="icon ni ni-send"></em><span> Save changes </span>');
-					if(xhr.status == 400){
-						displayError(displayErrors, xhr.responseJSON);
+					if(xhr.status == 400 || xhr.status == 422){
+						if(xhr.status == 422){
+							displayError2(displayErrors, xhr.responseJSON.errors);
+						} else {
+							displayError(displayErrors, xhr.responseJSON);
+						}
 					} else if(xhr.status == 409){
 						Swal.fire({
 							title: 'Error ' + xhr.status,
@@ -170,6 +174,18 @@ $(document).ready(function () {
 			}
 		});
 	}
+
+	function displayError2(options, data){
+		$.each(options, function(key, value){
+			if(data[value.inputName] && data[value.inputName][0]){
+				$(value.display).removeClass('d-none');
+				$('input[name="'+value.inputName+'"]').addClass('is-invalid');
+				$(value.display).html(data[value.inputName][0]);
+			}
+		});
+	}
+
+
 	function setError(options) {
 		$.each(options, function (key, value) {
 			$(value.display).addClass("d-none");

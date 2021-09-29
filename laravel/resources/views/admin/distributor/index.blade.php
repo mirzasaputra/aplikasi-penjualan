@@ -15,8 +15,8 @@
                     <a href="#" class="btn btn-icon btn-trigger toggle-expand mr-n1" data-target="pageMenu"><em class="icon ni ni-menu-alt-r"></em></a>
                     <div class="toggle-expand-content" data-content="pageMenu">
                         <ul class="nk-block-tools g-3">
-                            @can('create-barang')
-                                <li><a href="{{ url('/administrator/barang/create')}}" class="btn btn-light bg-white ajaxAction"><em class="icon ni ni-plus"></em><span>Add New Barang</span></a></li>
+                            @can('create-distributor')
+                                <li><a href="{{ url('/administrator/distributor/create')}}" class="btn btn-light bg-white ajaxAction"><em class="icon ni ni-plus"></em><span>Add New Distributor</span></a></li>
                             @endcan
                         </ul>
                     </div>
@@ -57,18 +57,10 @@
                                         <label class="custom-control-label" for="uid"></label>
                                     </div>
                                 </th> --}}
-                                <th class="nk-tb-col" rowspan="2"><span class="sub-text">Kode Barang</span></th>
-                                <th class="nk-tb-col tb-col-mb" rowspan="2"><span class="sub-text">Name</span></th>
-                                <th class="nk-tb-col tb-col-mb" rowspan="2"><span class="sub-text">Distributor</span></th>
-                                <th class="nk-tb-col tb-col-md" rowspan="2"><span class="sub-text">Isi/Dus</span></th>
-                                <th class="nk-tb-col tb-col-lg" rowspan="2"><span class="sub-text">Harga Beli</span></th>
-                                <th class="nk-tb-col tb-col-md text-center" colspan="2"><span class="sub-text">Harga Jual</span></th>
-                                <th class="nk-tb-col tb-col-md" rowspan="2"><span class="sub-text">Stok</span></th>
-                                <th class="nk-tb-col nk-tb-col-tools text-right" rowspan="2"></th>
-                            </tr>
-                            <tr>
-                                <th class="nk-tb-col"><span class="sub-text">R2</span></th>
-                                <th class="nk-tb-col tb-col-mb"><span class="sub-text">Eceran</span></th>
+                                <th class="nk-tb-col"><span class="sub-text">Nama Distributor</span></th>
+                                <th class="nk-tb-col tb-col-mb"><span class="sub-text">No. Telp/Wa</span></th>
+                                <th class="nk-tb-col tb-col-mb"><span class="sub-text">Alamat</span></th>
+                                <th class="nk-tb-col nk-tb-col-tools text-right"></th>
                             </tr>
                         </thead><!-- .nk-tb-item -->
                         <tbody>
@@ -81,42 +73,27 @@
                                     </div>
                                 </td> --}}
                                 <td class="nk-tb-col">
-                                    <span>{{ $item->kode_barang }}</span>
+                                    <span>{{ $item->name }}</span>
                                 </td>
                                 <td class="nk-tb-col tb-col-mb">
-                                    <span>{{ $item->nama }}</span>
+                                    <span>{{ $item->no_telp }}</span>
                                 </td>
                                 <td class="nk-tb-col tb-col-mb">
-                                    <span>{{ $item->distributor->name }}</span>
-                                </td>
-                                <td class="nk-tb-col tb-col-md">
-                                    <span>{{ $item->isi_per_dus }}</span>
-                                </td>
-                                <td class="nk-tb-col tb-col-lg">
-                                    <span>Rp. {{ number_format($item->harga_beli, 0, ',', '.') }}</span>
-                                </td>
-                                <td class="nk-tb-col tb-col-md">
-                                    <span>Rp. {{ number_format($item->harga_r2, 0, ',', '.') }}</span>
-                                </td>
-                                <td class="nk-tb-col tb-col-md">
-                                    <span>Rp. {{ number_format($item->harga_eceran, 0, ',', '.') }}</span>
-                                </td>
-                                <td class="nk-tb-col tb-col-md">
-                                    <span>{{ $item->stok }}</span>
+                                    <span>{{ $item->alamat }}</span>
                                 </td>
                                 <td class="nk-tb-col nk-tb-col-tools">
-                                    @canany(['update-barang','delete-barang'])
+                                    @canany(['update-distributor','delete-distributor'])
                                         <ul class="nk-tb-actions gx-1">
                                             <li>
                                                 <div class="drodown">
                                                     <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
                                                     <div class="dropdown-menu dropdown-menu-right">
                                                         <ul class="link-list-opt no-bdr">
-                                                            @can('update-barang')
-                                                                <li><a class="ajaxAction" href="{{ url('/') }}/administrator/barang/{{ Hashids::encode($item->id).'/edit' }}"><em class="icon ni ni-edit"></em><span>Edit Barang</span></a></li>
+                                                            @can('update-distributor')
+                                                                <li><a class="ajaxAction" href="{{ url('/') }}/administrator/distributor/{{ Hashids::encode($item->id).'/edit' }}"><em class="icon ni ni-edit"></em><span>Edit Distributor</span></a></li>
                                                             @endcan
-                                                            @can('delete-barang')
-                                                                <li><a class="deleteItem" href="{{ url('/') }}/administrator/barang/{{ Hashids::encode($item->id) }}/delete"><em class="icon ni ni-trash"></em><span>Delete Barang</span></a></li>
+                                                            @can('delete-distributor')
+                                                                <li><a class="deleteItem" href="{{ url('/') }}/administrator/distributor/{{ Hashids::encode($item->id) }}/delete"><em class="icon ni ni-trash"></em><span>Delete Distributor</span></a></li>
                                                             @endcan
                                                         </ul>
                                                     </div>

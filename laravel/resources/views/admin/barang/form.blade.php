@@ -27,10 +27,10 @@
                         <div class="row gy-4">
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label class="form-label" for="default-01">Barcode</label>
+                                    <label class="form-label" for="default-01">Kode Barang</label>
                                     <div class="form-control-wrap">
-                                        <input type="text" class="form-control" id="barcode" name="barcode" placeholder="Barcode" autocomplete="off" value="{{ isset($data->barcode) ? $data->barcode : '' }}">
-                                        <i class="text-danger small d-none" id="barcodeErr"></i>
+                                        <input type="text" class="form-control" id="barcode" name="kode_barang" placeholder="Kode Barang" autocomplete="off" value="{{ isset($data->kode_barang) ? $data->kode_barang : '' }}">
+                                        <i class="text-danger small d-none" id="kodeBarangErr"></i>
                                     </div>
                                 </div>
                             </div>
@@ -40,6 +40,20 @@
                                     <div class="form-control-wrap">
                                         <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama Barang" autocomplete="off" value="{{ isset($data->nama) ? $data->nama : '' }}">
                                         <i class="text-danger small d-none" id="namaErr"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="form-label" for="default-03">Distributor<span class="text-danger">*</span></label>
+                                    <div class="form-control-wrap">
+                                        <select name="distributor_id" id="" class="select2 form-control">
+                                            <option value="" selected disabled>Pilih</option>
+                                            @foreach($distributor as $item)
+                                                <option value="{{ $item->id }}" {{ (isset($data->distributor_id) && $data->distributor_id == $item->id) ? 'selected' : '' }}>{{ $item->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        <i class="text-danger small d-none" id="distributorErr"></i>
                                     </div>
                                 </div>
                             </div>
@@ -63,11 +77,29 @@
                             </div>
                             <div class="col-sm-6">
                                 <div class="form-group">
-                                    <label class="form-label" for="default-03">Harga Jual <span class="text-danger">*</span></label>
+                                    <label class="form-label" for="default-03">Harga Jual R2<span class="text-danger">*</span></label>
                                     <div class="form-control-wrap">
-                                        <input type="number" min="0" class="form-control" id="harga_jual" name="harga_jual" placeholder="Ex: 90000" autocomplete="off" value="{{ isset($data->harga_jual) ? $data->harga_jual : '' }}">
+                                        <input type="number" min="0" class="form-control" id="harga_jual" name="harga_r2" placeholder="Ex: 90000" autocomplete="off" value="{{ isset($data->harga_r2) ? $data->harga_r2 : '' }}">
                                     </div>
-                                    <i class="text-danger small d-none" id="harga_jualErr"></i>
+                                    <i class="text-danger small d-none" id="harga_r2Err"></i>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="form-label" for="default-03">Harga Jual Eceran<span class="text-danger">*</span></label>
+                                    <div class="form-control-wrap">
+                                        <input type="number" min="0" class="form-control" id="harga_jual" name="harga_eceran" placeholder="Ex: 90000" autocomplete="off" value="{{ isset($data->harga_eceran) ? $data->harga_eceran : '' }}">
+                                    </div>
+                                    <i class="text-danger small d-none" id="harga_eceranErr"></i>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label class="form-label" for="default-03">Isi/Dus <span class="text-danger">*</span></label>
+                                    <div class="form-control-wrap">
+                                        <input type="number" min="0" class="form-control" id="isi_per_dus" name="isi_per_dus" placeholder="Stok" autocomplete="off" value="{{ isset($data->isi_per_dus) ? $data->isi_per_dus : '' }}">
+                                    </div>
+                                    <i class="text-danger small d-none" id="isiPerDusErr"></i>
                                 </div>
                             </div>
                             <div class="col-sm-6">

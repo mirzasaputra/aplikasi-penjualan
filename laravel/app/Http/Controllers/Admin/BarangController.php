@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Barang;
+use App\Models\Distributor;
 use Carbon\Carbon;
 use Vinkla\Hashids\Facades\Hashids;
 
@@ -37,6 +38,7 @@ class BarangController extends Controller
         $data = [
             'title'  => 'Tambah Barang',
             'mod'    => 'mod_barang',
+            'distributor' => Distributor::all(),
             'action' => '/administrator/barang/store',
         ];
 
@@ -53,11 +55,14 @@ class BarangController extends Controller
     {
         if(\Request::ajax()){
             $validator = Validator::make($request->all(), [
-                'barcode' => 'unique:barang,barcode',
+                'kode_barang' => 'required|unique:barang,kode_barang',
                 'nama'    => 'required',
+                'distributor_id'    => 'required',
                 'satuan'  => 'required',
                 'harga_beli' => 'required|integer',
-                'harga_jual' => 'required|integer',
+                'harga_r2' => 'required|integer',
+                'harga_eceran' => 'required|integer',
+                'isi_per_dus' => 'required|integer',
                 'stok' => 'required|integer',
             ]);
 
@@ -68,11 +73,14 @@ class BarangController extends Controller
             } else {
                 try {
                     Barang::create([
-                        'barcode' => $request->barcode,
+                        'kode_barang' => $request->kode_barang,
                         'nama' => $request->nama,
+                        'distributor_id' => $request->distributor_id,
                         'satuan' => $request->satuan,
                         'harga_beli' => $request->harga_beli,
-                        'harga_jual' => $request->harga_jual,
+                        'harga_r2' => $request->harga_r2,
+                        'harga_eceran' => $request->harga_eceran,
+                        'isi_per_dus' => $request->isi_per_dus,
                         'stok' => $request->stok,
                     ]);
 
@@ -114,6 +122,7 @@ class BarangController extends Controller
         $data = [
             'title'  => 'Edit Barang',
             'mod'    => 'mod_barang',
+            'distributor' => Distributor::all(),
             'action' => '/administrator/barang/'. $id .'/update',
             'data'   => Barang::find($ids[0])
         ];
@@ -133,10 +142,13 @@ class BarangController extends Controller
         if(\Request::ajax()){
             $ids = Hashids::decode($id);
             $validator = Validator::make($request->all(), [
+                'kode_barang'    => 'required',
                 'nama'    => 'required',
                 'satuan'  => 'required',
                 'harga_beli' => 'required|integer',
-                'harga_jual' => 'required|integer',
+                'harga_r2' => 'required|integer',
+                'harga_eceran' => 'required|integer',
+                'isi_per_dus' => 'required|integer',
                 'stok' => 'required|integer',
             ]);
 
@@ -147,11 +159,13 @@ class BarangController extends Controller
             } else {
                 try {
                     Barang::where('id', $ids[0])->update([
-                        'barcode' => $request->barcode,
+                        'kode_barang' => $request->kode_barang,
                         'nama' => $request->nama,
                         'satuan' => $request->satuan,
                         'harga_beli' => $request->harga_beli,
-                        'harga_jual' => $request->harga_jual,
+                        'harga_r2' => $request->harga_r2,
+                        'harga_eceran' => $request->harga_eceran,
+                        'isi_per_dus' => $request->isi_per_dus,
                         'stok' => $request->stok,
                     ]);
 
